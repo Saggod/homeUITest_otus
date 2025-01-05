@@ -16,13 +16,6 @@ public abstract class AbsComponent<T> extends AbsCommon<T> {
         super(driver);
     }
 
-    {
-        try {
-            waiters.waitForVisible(getComponentEntity());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     protected By getComponentBy() throws Exception {

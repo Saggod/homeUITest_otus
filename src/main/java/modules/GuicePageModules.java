@@ -3,16 +3,23 @@ package modules;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import components.static_component.HeaderMenuCompoonent;
 import factory.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pages.CategoryCardPage;
-import pages.CategoryPage;
+import pages.CategoryCoursesPage;
+import pages.MainPage;
 
 public class GuicePageModules extends AbstractModule {
 
     private final WebDriver driver = new WebDriverFactory().create();
 
+
+    @Singleton
+    @Provides
+    public MainPage getMainPage() {
+        return new MainPage(driver);
+    }
 
     @Provides
     private WebDriver getDriver() {
@@ -21,8 +28,8 @@ public class GuicePageModules extends AbstractModule {
 
     @Singleton
     @Provides
-    public CategoryPage getCategoryPage(){
-        return new CategoryPage(driver);
+    public CategoryCoursesPage getCategoryPage(){
+        return new CategoryCoursesPage(driver);
     }
 
     @Singleton
@@ -30,4 +37,11 @@ public class GuicePageModules extends AbstractModule {
     public CategoryCardPage getCategoryCardPage(){
         return new CategoryCardPage(driver);
     }
+
+    @Singleton
+    @Provides
+    public HeaderMenuCompoonent getHeaderMenuCompoonent(){
+        return new HeaderMenuCompoonent(driver);
+    }
+
 }

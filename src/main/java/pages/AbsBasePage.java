@@ -50,7 +50,6 @@ public abstract class AbsBasePage<T> extends AbsCommon<T> {
     }
 
     public T pageHeaderShoulbBeSameAs(String title) {
-        System.out.println("text = " + $(By.tagName("h1")).getText());
         assertThat($(By.tagName("h1")).getText())
                 .as("Header of page shoulb be {} - {}", title)
                 .isEqualTo(title);

@@ -18,7 +18,6 @@ public class PopupHeaderSubMenu extends AbsComponent<PopupHeaderSubMenu> impleme
         assertThat(waiters.waitForInvisible(getComponentEntity().findElement(getComponentBy())))
                 .as("Error")
                 .isTrue();
-
         return this;
     }
 
