@@ -2,13 +2,15 @@ package main;
 
 import com.google.inject.Inject;
 import components.static_component.HeaderMenuCompoonent;
-import data.menu.HeaderMenuData;
+import data.CourseDetails;
 import extensions.UiExtensions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.CategoryCardPage;
 import pages.CategoryCoursesPage;
 import pages.MainPage;
+import java.util.List;
 
 @ExtendWith(UiExtensions.class)
 public class CategoryPage_Test {
@@ -25,7 +27,10 @@ public class CategoryPage_Test {
     @Inject
     private HeaderMenuCompoonent headerMenuCompoonent;
 
+    private static final String LESSONS_URL = "/catalog/courses";
+
     @Test
+    @DisplayName("Сценарий 1: Найти курс по имени")
     public void categoryPageTest() {
         String categoryTitle = categoryPage
                 .open()
@@ -37,26 +42,29 @@ public class CategoryPage_Test {
 
     }
 
-
     @Test
-    public void catalogEducationSelectTest() {
-        String educationCatalog = categoryPage
-                .open()
-                .getEducationItem(1);
-
-        headerMenuCompoonent
-            .setFocusToMenuItem(HeaderMenuData.EDUCATION);
+    @DisplayName("Сценарий 2: Найти курсы, которые стартуют раньше и позже всех.")
+    public void sortedByEarlyAndLateCoursesDatesTest() {
         categoryPage
-                .clickEducationCourseOnHeader(educationCatalog);
-        categoryCardPage
-                .pageHeaderShoulbBeSameAs(educationCatalog);
-
-
-
-
-
-
+                .open();
+        List<CourseDetails> listLessons = categoryPage
+                .sortedByEarlyAndLateDate();
+        categoryPage.
+                validateFirstAndLastCourses(listLessons);
 
     }
+
+    @Test
+    @DisplayName("Сценарий 3: Открыть меню 'Обучение' и выбрать случайную категорию курсов")
+    public void catalogEducationSelectTest() {
+        categoryPage
+                .open();
+        String educationCatalog = categoryPage
+                .selectRandomCategory();
+        categoryPage
+                .checkCheckboxSelectedOnCategory(educationCatalog);
+    }
+
+
 
 }
