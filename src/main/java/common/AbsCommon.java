@@ -12,7 +12,7 @@ import waiters.Waiters;
 
 import javax.swing.*;
 
-public class AbsCommon<T> {
+public abstract class AbsCommon<T> {
 
     protected WebDriver driver;
     protected Actions actions;

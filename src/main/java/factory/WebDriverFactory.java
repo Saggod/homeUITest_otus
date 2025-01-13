@@ -14,7 +14,7 @@ public class WebDriverFactory {
         switch (browserName.trim().toLowerCase()) {
             case "chrome":
                 ChromeOptions chromeOptions = (ChromeOptions) new ChromeSettings().settings();
-               return new ChromeDriver();
+               return new ChromeDriver(chromeOptions);
             default:
                 throw new BrowserNotFoundException(browserName);
         }

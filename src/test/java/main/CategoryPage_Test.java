@@ -1,7 +1,6 @@
 package main;
 
 import com.google.inject.Inject;
-import components.static_component.HeaderMenuCompoonent;
 import data.CourseDetails;
 import extensions.UiExtensions;
 import org.junit.jupiter.api.DisplayName;
@@ -24,10 +23,6 @@ public class CategoryPage_Test {
     @Inject
     private MainPage mainPage;
 
-    @Inject
-    private HeaderMenuCompoonent headerMenuCompoonent;
-
-    private static final String LESSONS_URL = "/catalog/courses";
 
     @Test
     @DisplayName("Сценарий 1: Найти курс по имени")

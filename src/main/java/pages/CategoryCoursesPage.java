@@ -8,7 +8,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -74,6 +73,7 @@ public class CategoryCoursesPage extends AbsBasePage<CategoryCoursesPage> {
     }
 
 
+
     public List<CourseDetails> sortedByEarlyAndLateDate() {
         List<CourseDetails> expectedCourseDetails = lessonsCompScienceCatalogTab.stream()
                 .map(it -> {
@@ -88,7 +88,6 @@ public class CategoryCoursesPage extends AbsBasePage<CategoryCoursesPage> {
                 .toList();
         LocalDate min = expectedCourseDetails.get(0).getFormattedDate();
         LocalDate max = expectedCourseDetails.get(expectedCourseDetails.size() - 1).getFormattedDate();
-
         return expectedCourseDetails.stream()
                 .filter(it -> it.getFormattedDate().equals(min) || it.getFormattedDate().equals(max))
                 .toList();
