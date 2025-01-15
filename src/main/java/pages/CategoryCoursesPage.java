@@ -3,6 +3,7 @@ package pages;
 import annotations.Path;
 import com.google.inject.Inject;
 import data.CourseDetails;
+import data.Pair;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,7 @@ import java.util.*;
 import java.util.List;
 
 
+import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
@@ -72,10 +74,9 @@ public class CategoryCoursesPage extends AbsBasePage<CategoryCoursesPage> {
                 .isEqualTo(selectedCategory);
     }
 
-
-
     public List<CourseDetails> sortedByEarlyAndLateDate() {
-        List<CourseDetails> expectedCourseDetails = lessonsCompScienceCatalogTab.stream()
+
+        List<CourseDetails> courseDetailsList = lessonsCompScienceCatalogTab.stream()
                 .map(it -> {
                     List<WebElement> elements = it.findElements(By.xpath(".//div[text() != '']"));
                     String name = elements.get(0).getText();
@@ -83,15 +84,34 @@ public class CategoryCoursesPage extends AbsBasePage<CategoryCoursesPage> {
                     return new CourseDetails(name, date, it.getDomAttribute("href"));
                 })
                 .toList();
-        expectedCourseDetails = expectedCourseDetails.stream()
-                .sorted(Comparator.comparing(CourseDetails::getFormattedDate))
-                .toList();
-        LocalDate min = expectedCourseDetails.get(0).getFormattedDate();
-        LocalDate max = expectedCourseDetails.get(expectedCourseDetails.size() - 1).getFormattedDate();
-        return expectedCourseDetails.stream()
-                .filter(it -> it.getFormattedDate().equals(min) || it.getFormattedDate().equals(max))
+
+        Pair<CourseDetails, CourseDetails> minMax = courseDetailsList.stream()
+                .reduce(
+                        new Pair<>(null, null),
+                        (acc, course) -> {
+                            CourseDetails min = acc.first() == null || course.getFormattedDate().isBefore(acc.first().getFormattedDate())
+                                    ? course
+                                    : acc.first();
+                            CourseDetails max = acc.second() == null || course.getFormattedDate().isAfter(acc.second().getFormattedDate())
+                                    ? course
+                                    : acc.second();
+                            return new Pair<>(min, max);
+                        },
+                        (left, right) -> {
+                            CourseDetails min = left.first().getFormattedDate().isBefore(right.first().getFormattedDate())
+                                    ? left.first()
+                                    : right.first();
+                            CourseDetails max = left.second().getFormattedDate().isAfter(right.second().getFormattedDate())
+                                    ? left.second()
+                                    : right.second();
+                            return new Pair<>(min, max);
+                        });
+
+        return courseDetailsList.stream()
+                .filter(course -> course.equals(minMax.first()) || course.equals(minMax.second()))
                 .toList();
     }
+
 
     public CourseDetails fetchCourseDetails() {
         String rawStartDate = dateStart.getText().replace("Старт занятий ", "");
