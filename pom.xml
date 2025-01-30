@@ -9,15 +9,15 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.11.0</junit.version>
         <selenium.version>4.27.0</selenium.version>
         <webdriver.manager.version>5.9.1</webdriver.manager.version>
         <assertj.version>3.26.3</assertj.version>
         <guice.version>7.0.0</guice.version>
-        <sufefire.version>3.5.0</sufefire.version>
+        <surefire.version>3.5.0</surefire.version>
         <compiler.version>3.13.0</compiler.version>
         <checkstyle.version>3.5.0</checkstyle.version>
         <spotbugs.version>4.8.6.2</spotbugs.version>
@@ -52,36 +52,87 @@
         </dependency>
     </dependencies>
 
-    <!--    <profiles>-->
-    <!--        <profile>-->
-    <!--            <id>prod</id>-->
-    <!--           <properties>-->
-    <!--               <browser>chrome</browser>-->
-    <!--           </properties>-->
-    <!--        </profile>-->
-    <!--    </profiles>-->
-
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <base.url>https://otus.ru</base.url>
+                <selenoid.url>http://45.132.17.22/wd/hub</selenoid.url>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.12.0</version>
+                <configuration>
+                    <reportDirectory>${project.build.directory}/allure-report</reportDirectory>
+                    <allureDownloadUrl>
+                        https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.24.0/allure-commandline-2.24.0.zip
+                    </allureDownloadUrl>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>listeners.CommonListener</value>
+                        </property>
+                        <configurationParameters>
+                            junit.jupiter.executions.autodetection.enabled = true
+                            junit.jupiter.execution.parallel.mode.default = concurrent
+                        </configurationParameters>
+                    </properties>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${sufefire.version}</version>
+                <version>${surefire.version}</version>
                 <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.8/aspectjweaver-1.9.8.jar"
+                    </argLine>
+                    <systemProperties>
+                        <property>
+                            <name>allure.results.directory</name>
+                            <value>${project.build.directory}/allure-results</value>
+                        </property>
+                    </systemProperties>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>listeners.CommonListener</value>
+                        </property>
+                        <configurationParameters>
+                            junit.jupiter.executions.autodetection.enabled = true
+                            junit.jupiter.execution.parallel.mode.default = concurrent
+                        </configurationParameters>
+                    </properties>
                     <systemPropertyVariables>
                         <browser>${browser}</browser>
                         <base.url>https://otus.ru</base.url>
+                        <remote.url>http://192.168.182.128/wd/hub</remote.url>
                     </systemPropertyVariables>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>${junit.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler.version}</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
             <!--            <plugin>-->
@@ -90,7 +141,7 @@
             <!--                <version>${checkstyle.version}</version>-->
             <!--                <configuration>-->
             <!--                    <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
-            <!--                    <configLocation>checkstyle.xml</configLocation>-->
+            <!--                    <configLocation>src/main/resources/checkstyle.xml</configLocation>-->
             <!--                </configuration>-->
             <!--                <executions>-->
             <!--                    <execution>-->
@@ -102,13 +153,14 @@
             <!--                    </execution>-->
             <!--                </executions>-->
             <!--            </plugin>-->
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>${spotbugs.version}</version>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>com.github.spotbugs</groupId>-->
+            <!--                <artifactId>spotbugs-maven-plugin</artifactId>-->
+            <!--                <version>${spotbugs.version}</version>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
+
 
 
 </project>

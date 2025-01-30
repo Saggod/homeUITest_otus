@@ -10,10 +10,14 @@ import pages.CategoryCardPage;
 import pages.CategoryCoursesPage;
 import pages.MainPage;
 
+import java.net.MalformedURLException;
+
 public class GuicePageModules extends AbstractModule {
 
     private final WebDriver driver = new WebDriverFactory().create();
 
+    public GuicePageModules() throws MalformedURLException {
+    }
 
     @Singleton
     @Provides

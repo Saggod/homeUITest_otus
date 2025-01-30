@@ -29,4 +29,5 @@ public abstract class AbsCommon<T> {
     protected WebElement $(By locator) {
         return driver.findElement(locator);
     }
+
 }

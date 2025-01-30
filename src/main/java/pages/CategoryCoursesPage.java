@@ -4,10 +4,7 @@ import annotations.Path;
 import com.google.inject.Inject;
 import data.CourseDetails;
 import data.Pair;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -33,7 +30,7 @@ public class CategoryCoursesPage extends AbsBasePage<CategoryCoursesPage> {
     @FindBy(xpath = "//main//section//a[contains(@href, '/lessons')]")
     private List<WebElement> lessonsCompScienceCatalogTab;
 
-    @FindBy(xpath = "//nav//span[@title='Обучение']")
+    @FindBy(xpath = "//span[@title='Обучение']")
     private WebElement education;
 
     @FindBy(xpath = "//section/div[.//p[text()='Направление']]//div[@class='ReactCollapse--content']/div/div")
