@@ -1,0 +1,69 @@
+services:
+   selenoid:
+     image: aerokube/selenoid:1.11.3
+     container_name: selenoid1
+     hostname: selenoid1
+     networks: 
+       - selenoid1
+     ports:
+       - 4445:4444
+     volumes:
+       - /var/run/docker.sock:/var/run/docker.sock
+       - /root/selenoid/browsers.json:/etc/selenoid/browsers.json:ro
+     command: -container-network=selenoid1 -limit 15
+     environment:
+       - OVERRIDE_VIDEO_OUTPUT_DIR=./video
+     mem_limit: "4g"
+     cpu_count: 4
+   
+   ggr:
+     image: aerokube/ggr:1.7.2
+     container_name: ggr
+     hostname: ggr
+     depends_on: [selenoid]
+     ports:
+       - 4444:4444
+     volumes:
+       - /etc/grid-router:/etc/grid-router:ro
+     command: -guests-allowed -guests-quota "test" -verbose -quotaDir /etc/grid-router/quota
+     networks: 
+       - selenoid1
+   
+   ggr_ui:
+     image: aerokube/ggr-ui:1.2.0
+     container_name: ggr-ui
+     hostname: ggr_ui
+     depends_on: [ggr]
+     volumes:
+       - /etc/grid-router/quota/:/etc/grid-router/quota:ro
+     networks: 
+       - selenoid1
+   
+   selenoid_ui:
+     image: aerokube/selenoid-ui:1.10.11
+     container_name: selenoid-ui
+     hostname: selenoid_ui
+     depends_on: [ggr_ui]
+     networks:
+       - selenoid1
+     ports:
+       - 8080:8080
+     command: --selenoid-uri http://ggr_ui:8888
+   
+   nginx:
+     image: nginx:latest
+     depends_on: [ggr, selenoid_ui]
+     ports:
+       - 80:80
+     volumes:
+       - /root/selenoid/nginx/:/etc/nginx/conf.d:ro
+     container_name: nginx
+     hostname: nginx
+     networks:
+       - selenoid1
+
+networks:
+  selenoid1:
+    name: selenoid1
+    driver: bridge
+    external: true

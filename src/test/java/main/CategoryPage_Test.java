@@ -6,11 +6,14 @@ import extensions.UiExtensions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.CategoryCardPage;
 import pages.CategoryCoursesPage;
 import pages.MainPage;
 import java.util.List;
 
+@Execution(ExecutionMode.CONCURRENT)
 @ExtendWith(UiExtensions.class)
 public class CategoryPage_Test {
 

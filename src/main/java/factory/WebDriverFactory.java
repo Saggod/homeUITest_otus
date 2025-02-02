@@ -28,8 +28,6 @@ public class WebDriverFactory {
             options.setCapability("browserVersion", "128");
             options.setCapability("selenoid:options", new HashMap<String, Object>() {{
 
-                put("enableVNC", true);
-                /* How to add test badge */
                 put("name", "Test badge...");
 
                 /* How to set session timeout */
@@ -40,10 +38,16 @@ public class WebDriverFactory {
                     add("TZ=UTC");
                 }});
 
+                /* How to add "trash" button */
+                put("labels", new HashMap<String, Object>() {{
+                    put("manual", "true");
+                }});
+
                 /* How to enable video recording */
                 put("enableVideo", false);
             }});
-            return new RemoteWebDriver(new URL("http://45.132.17.22/wd/hub"), options);
+            return new RemoteWebDriver (new URL("http://192.168.182.128/wd/hub"), options);
+
         }
 
         switch (browserName.trim().toLowerCase()) {
