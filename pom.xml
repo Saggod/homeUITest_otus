@@ -20,6 +20,7 @@
         <sufefire.version>3.5.0</sufefire.version>
         <compiler.version>3.13.0</compiler.version>
         <checkstyle.version>3.5.0</checkstyle.version>
+        <jsoup.version>1.18.1</jsoup.version>
         <spotbugs.version>4.8.6.2</spotbugs.version>
         <browser>chrome</browser>
     </properties>
@@ -29,6 +30,11 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
