@@ -130,7 +130,7 @@ public class CategoryCoursesPage extends AbsBasePage<CategoryCoursesPage> {
         return LocalDate.parse(rawDate, formatter);
     }
 
-    public void validateFirstAndLastCourses(List<CourseDetails> expectedCourses) {
+    public void validateFirstAndLastNameCourses(List<CourseDetails> expectedCourses) {
         List<CourseDetails> actualCourses = new ArrayList<>();
         for (CourseDetails course : expectedCourses) {
             open(course.getUrl());
