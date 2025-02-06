@@ -48,7 +48,7 @@ public class CategoryPage_Test {
         List<CourseDetails> listLessons = categoryPage
                 .sortedByEarlyAndLateDate();
         categoryPage.
-                validateFirstAndLastCourses(listLessons);
+                validateFirstAndLastNameCourses(listLessons);
 
     }
 
