@@ -12,7 +12,8 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.11.0</junit.version>
+        <junit.version>5.11.3</junit.version>
+        <junit.platform.ver>1.11.4</junit.platform.ver>
         <selenium.version>4.27.0</selenium.version>
         <webdriver.manager.version>5.9.1</webdriver.manager.version>
         <assertj.version>3.26.3</assertj.version>
@@ -22,10 +23,42 @@
         <checkstyle.version>3.5.0</checkstyle.version>
         <jsoup.version>1.18.1</jsoup.version>
         <spotbugs.version>4.8.6.2</spotbugs.version>
+        <guice.version>7.0.0</guice.version>
+        <cucumber.ver>7.20.0</cucumber.ver>
         <browser>chrome</browser>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.ver}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-guice</artifactId>
+            <version>${cucumber.ver}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>${cucumber.ver}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite-engine</artifactId>
+            <version>${junit.platform.ver}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -58,14 +91,14 @@
         </dependency>
     </dependencies>
 
-    <!--    <profiles>-->
-    <!--        <profile>-->
-    <!--            <id>prod</id>-->
-    <!--           <properties>-->
-    <!--               <browser>chrome</browser>-->
-    <!--           </properties>-->
-    <!--        </profile>-->
-    <!--    </profiles>-->
+        <profiles>
+            <profile>
+                <id>prod</id>
+               <properties>
+                   <browser>chrome</browser>
+               </properties>
+            </profile>
+        </profiles>
 
 
     <build>
@@ -90,24 +123,24 @@
                     <target>16</target>
                 </configuration>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>org.apache.maven.plugins</groupId>-->
-            <!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
-            <!--                <version>${checkstyle.version}</version>-->
-            <!--                <configuration>-->
-            <!--                    <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
-            <!--                    <configLocation>checkstyle.xml</configLocation>-->
-            <!--                </configuration>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <id>analyze-compile</id>-->
-            <!--                        <phase>compile</phase>-->
-            <!--                        <goals>-->
-            <!--                            <goal>check</goal>-->
-            <!--                        </goals>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-checkstyle-plugin</artifactId>
+                            <version>${checkstyle.version}</version>
+                            <configuration>
+                                <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                                <configLocation>checkstyle.xml</configLocation>
+                            </configuration>
+                            <executions>
+                                <execution>
+                                    <id>analyze-compile</id>
+                                    <phase>compile</phase>
+                                    <goals>
+                                        <goal>check</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
