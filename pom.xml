@@ -90,24 +90,24 @@
                     <target>16</target>
                 </configuration>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>org.apache.maven.plugins</groupId>-->
-            <!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
-            <!--                <version>${checkstyle.version}</version>-->
-            <!--                <configuration>-->
-            <!--                    <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
-            <!--                    <configLocation>checkstyle.xml</configLocation>-->
-            <!--                </configuration>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <id>analyze-compile</id>-->
-            <!--                        <phase>compile</phase>-->
-            <!--                        <goals>-->
-            <!--                            <goal>check</goal>-->
-            <!--                        </goals>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-checkstyle-plugin</artifactId>
+                            <version>${checkstyle.version}</version>
+                            <configuration>
+                                <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                                <configLocation>checkstyle.xml</configLocation>
+                            </configuration>
+                            <executions>
+                                <execution>
+                                    <id>analyze-compile</id>
+                                    <phase>compile</phase>
+                                    <goals>
+                                        <goal>check</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
