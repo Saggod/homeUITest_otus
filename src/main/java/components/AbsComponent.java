@@ -6,14 +6,15 @@ import common.AbsCommon;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import scoped.GuiceScoped;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class AbsComponent<T> extends AbsCommon<T> {
 
-    public AbsComponent(WebDriver driver) {
-        super(driver);
+    public AbsComponent(GuiceScoped guiceScoped) {
+        super(guiceScoped);
     }
 
 

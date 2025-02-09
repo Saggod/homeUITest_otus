@@ -3,12 +3,14 @@ package pages;
 import annotations.Path;
 import com.google.inject.Inject;
 import org.openqa.selenium.WebDriver;
+import scoped.GuiceScoped;
 
 @Path("/")
 public class MainPage extends AbsBasePage<MainPage>{
 
-    public MainPage(WebDriver driver) {
-        super(driver);
+    @Inject
+    public MainPage(GuiceScoped guiceScoped) {
+        super(guiceScoped);
     }
 
 }

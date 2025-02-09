@@ -2,12 +2,14 @@ package pages;
 
 import annotations.Path;
 import annotations.PathTemplate;
+import com.google.inject.Inject;
 import common.AbsCommon;
 import exceptions.PathNotValidExeption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import scoped.GuiceScoped;
 
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -19,8 +21,9 @@ public abstract class AbsBasePage<T> extends AbsCommon<T> {
             : System.getProperty("base.url")
             .substring(0, System.getProperty("base.url").length() - 1);
 
-    public AbsBasePage(WebDriver driver) {
-        super(driver);
+    @Inject
+    public AbsBasePage(GuiceScoped guiceScoped) {
+        super(guiceScoped);
     }
 
     private String getPath() {

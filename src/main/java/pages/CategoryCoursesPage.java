@@ -4,31 +4,30 @@ import annotations.Path;
 import com.google.inject.Inject;
 import data.CourseDetails;
 import data.Pair;
-import org.assertj.core.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import scoped.GuiceScoped;
+import waiters.Waiters;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
 
-
-import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 @Path("/catalog/courses")
 public class CategoryCoursesPage extends AbsBasePage<CategoryCoursesPage> {
 
-
-    public CategoryCoursesPage(WebDriver driver) {
-        super(driver);
+    @Inject
+    public CategoryCoursesPage(GuiceScoped guiceScoped) {
+        super(guiceScoped);
     }
 
     @Inject

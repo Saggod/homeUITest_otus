@@ -1,5 +1,3 @@
-package cucumber;
-
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
@@ -10,6 +8,6 @@ import static io.cucumber.core.options.Constants.GLUE_PROPERTY_NAME;
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "cucu")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "otus")
 public class RunnerTeest {
 }

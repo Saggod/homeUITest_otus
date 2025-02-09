@@ -1,4 +1,4 @@
-package cucumber.steps.pages;
+package otus.steps;
 
 import com.google.inject.Inject;
 import io.cucumber.java.ru.Пусть;

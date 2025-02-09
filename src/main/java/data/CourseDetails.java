@@ -61,9 +61,17 @@ public class CourseDetails {
                 Objects.equals(formattedDate, other.formattedDate);
     }
 
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(title, formattedDate);
+//    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(title, formattedDate);
+        int result = title.hashCode();
+        result = 31 * result + rawDate.hashCode();
+        result = 31 * result + url.hashCode();
+        return result;
     }
 
     @Override

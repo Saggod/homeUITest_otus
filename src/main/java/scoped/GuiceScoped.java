@@ -4,18 +4,14 @@ import factory.WebDriverFactory;
 import io.cucumber.guice.ScenarioScoped;
 import org.openqa.selenium.WebDriver;
 
+import java.util.Locale;
+
 @ScenarioScoped
 public class GuiceScoped {
+    public WebDriver driver = null;
 
-    private WebDriver webDriver = createWebDriver();
-
-    public WebDriver getWebDriver() {
-        return webDriver;
-    }
-
-    private WebDriver createWebDriver() {
-        WebDriver driver = new WebDriverFactory().create();
-        driver.manage().window().maximize();
-        return driver;
+    public void browser(String browserName) {
+        System.setProperty("browser", browserName);
+        this.driver = new WebDriverFactory().create();
     }
 }

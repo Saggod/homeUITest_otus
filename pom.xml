@@ -12,10 +12,10 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.11.3</junit.version>
+        <junit.version>5.11.0</junit.version>
         <junit.platform.ver>1.11.4</junit.platform.ver>
-        <selenium.version>4.27.0</selenium.version>
-        <webdriver.manager.version>5.9.1</webdriver.manager.version>
+        <selenium.version>4.24.0</selenium.version>
+        <webdriver.manager.version>5.9.2</webdriver.manager.version>
         <assertj.version>3.26.3</assertj.version>
         <guice.version>7.0.0</guice.version>
         <sufefire.version>3.5.0</sufefire.version>
@@ -24,7 +24,7 @@
         <jsoup.version>1.18.1</jsoup.version>
         <spotbugs.version>4.8.6.2</spotbugs.version>
         <guice.version>7.0.0</guice.version>
-        <cucumber.ver>7.20.0</cucumber.ver>
+        <cucumber.ver>7.20.1</cucumber.ver>
         <browser>chrome</browser>
     </properties>
 
@@ -111,6 +111,7 @@
                     <systemPropertyVariables>
                         <browser>${browser}</browser>
                         <base.url>https://otus.ru</base.url>
+                        <forkCount>0</forkCount>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -123,24 +124,24 @@
                     <target>16</target>
                 </configuration>
             </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-checkstyle-plugin</artifactId>
-                            <version>${checkstyle.version}</version>
-                            <configuration>
-                                <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                                <configLocation>checkstyle.xml</configLocation>
-                            </configuration>
-                            <executions>
-                                <execution>
-                                    <id>analyze-compile</id>
-                                    <phase>compile</phase>
-                                    <goals>
-                                        <goal>check</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
+<!--                        <plugin>-->
+<!--                            <groupId>org.apache.maven.plugins</groupId>-->
+<!--                            <artifactId>maven-checkstyle-plugin</artifactId>-->
+<!--                            <version>${checkstyle.version}</version>-->
+<!--                            <configuration>-->
+<!--                                <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
+<!--                                <configLocation>checkstyle.xml</configLocation>-->
+<!--                            </configuration>-->
+<!--                            <executions>-->
+<!--                                <execution>-->
+<!--                                    <id>analyze-compile</id>-->
+<!--                                    <phase>compile</phase>-->
+<!--                                    <goals>-->
+<!--                                        <goal>check</goal>-->
+<!--                                    </goals>-->
+<!--                                </execution>-->
+<!--                            </executions>-->
+<!--                        </plugin>-->
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>

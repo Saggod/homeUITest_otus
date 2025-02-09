@@ -1,4 +1,4 @@
-package cucumber.steps.pages;
+package otus.steps;
 
 import com.google.inject.Inject;
 import data.CourseDetails;
@@ -15,10 +15,15 @@ public class LessonsPageSteps {
     private static List<CourseDetails> courseDetails;
 
     @Inject
-    public CategoryCardPage categoryCardPage; //lessonPage
+    public CategoryCardPage categoryCardPage;
 
     @Inject
-    public CategoryCoursesPage categoryCoursesPage;  //lessonsListPage
+    public CategoryCoursesPage categoryCoursesPage;
+
+    @Пусть("Открываем страницу курсов")
+    public void opeenCoursePage() {
+        categoryCoursesPage.open();
+    }
 
     @Пусть("Открываем курс: {string}")
     public void selectLessonByName(String name) {
@@ -39,9 +44,10 @@ public class LessonsPageSteps {
     public void checkFirstAndLastLessons() {
         categoryCoursesPage.validateFirstAndLastNameCourses(courseDetails);
     }
-//
-//    @Тогда("Проверяем, что отображаются курсы выбранной категории")
-//    public void checkSelectedCategory() {
-//        categoryCoursesPage.checkSelectedCategory(HeaderPageSteps.selectedCategory);
-//    }
+
+    @Тогда("Проверяем, что отображаются курсы выбранной категории")
+    public void checkCheckboxSelectedOnCategory() {
+        categoryCoursesPage.checkCheckboxSelectedOnCategory(HeaderPageSteps.selectedCategory);
+    }
+
 }
