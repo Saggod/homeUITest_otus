@@ -1,10 +1,14 @@
 package pages;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.List;
 import annotations.Path;
 import com.google.inject.Inject;
 import data.CourseDetails;
 import data.Pair;
-import org.assertj.core.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -12,11 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.List;
+
 
 
 import static org.assertj.core.api.Assertions.fail;
@@ -116,15 +116,6 @@ public class CategoryCoursesPage extends AbsBasePage<CategoryCoursesPage> {
                 .toList();
     }
 
-
-    public CourseDetails fetchCourseDetails() {
-        String rawStartDate = dateStart.getText().replace("Старт занятий ", "");
-        String courseTitle = header.getText();
-        LocalDate parsedStartDate = parseStartDate(rawStartDate);
-
-        return new CourseDetails(courseTitle, rawStartDate, parsedStartDate);
-    }
-
     private LocalDate parseStartDate(String rawDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy", new Locale("ru"));
         int spaceCount = rawDate.length() - rawDate.replace(" ", "").length();
@@ -138,12 +129,26 @@ public class CategoryCoursesPage extends AbsBasePage<CategoryCoursesPage> {
         List<CourseDetails> actualCourses = new ArrayList<>();
         for (CourseDetails course : expectedCourses) {
             open(course.getUrl());
-            actualCourses.add(fetchCourseDetails());
+            actualCourses.add(fetchCourseDetails(course.getUrl()));
         }
         boolean areEqual = actualCourses.equals(expectedCourses);
         assertThat(areEqual)
                 .as("Course names or dates do not match between the page and the expected list")
                 .isTrue();
+    }
+
+    private CourseDetails fetchCourseDetails(String url) {
+        try {
+            Document document = Jsoup.connect(url).get();
+
+            String courseName = document.select("h1").text();
+            String courseDate = document.select("//p[contains(@class, 'sc-1og4wiw-0 sc-3cb1l3-0 gcChXs dgWykw')])[1]").text();
+
+            return new CourseDetails(courseName, courseDate, url);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

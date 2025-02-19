@@ -4,7 +4,6 @@ import annotations.PathTemplate;
 import com.google.inject.Inject;
 import org.openqa.selenium.WebDriver;
 
-
 @PathTemplate("/lessons/$1")
 public class CategoryCardPage extends AbsBasePage<CategoryCardPage> {
 

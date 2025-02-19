@@ -1,7 +1,6 @@
 package pages;
 
 import annotations.Path;
-import com.google.inject.Inject;
 import org.openqa.selenium.WebDriver;
 
 @Path("/")

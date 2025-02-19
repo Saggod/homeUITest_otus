@@ -1,14 +1,12 @@
 package components;
 
-
-import annotations.component.Component;
-import common.AbsCommon;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import annotations.component.Component;
+import common.AbsCommon;
 
 public abstract class AbsComponent<T> extends AbsCommon<T> {
 

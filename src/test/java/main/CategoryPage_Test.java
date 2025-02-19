@@ -1,5 +1,6 @@
 package main;
 
+import java.util.List;
 import com.google.inject.Inject;
 import data.CourseDetails;
 import extensions.UiExtensions;
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import pages.CategoryCardPage;
 import pages.CategoryCoursesPage;
 import pages.MainPage;
-import java.util.List;
+
 
 @ExtendWith(UiExtensions.class)
 public class CategoryPage_Test {
